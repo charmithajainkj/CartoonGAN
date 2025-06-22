@@ -7,18 +7,6 @@ Pytorch and Torch testing code of [CartoonGAN](http://openaccess.thecvf.com/cont
 </p>
 
 
-## Getting started
-
-- Linux
-- NVIDIA GPU
-- Pytorch 0.3
-- Torch
-
-```
-git clone https://github.com/Yijunmaverick/CartoonGAN-Test-Pytorch-Torch
-cd CartoonGAN-Test-Pytorch-Torch
-```
-
 ## Pytorch
 
 The original pretrained models are Torch `nngraph` models, which cannot be loaded in Pytorch through `load_lua`. So I manually copy the weights (bias) layer by layer and convert them to `.pth` models. 

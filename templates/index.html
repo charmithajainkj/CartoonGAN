@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CartoonGAN</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body class="background-image">
+    <div class="container">
+        <h1>CartoonGAN</h1>
+
+        <form method="POST" enctype="multipart/form-data" class="upload-form">
+            <label>Upload Image:</label>
+            <input type="file" name="image" required><br>
+
+            <label>Select Style:</label>
+            <select name="style" required>
+                <option value="" disabled selected>Select a style</option>
+                {% for style in styles %}
+                    <option value="{{ style }}">{{ style }}</option>
+                {% endfor %}
+            </select><br>
+
+            <button type="submit" class="btn-submit">Cartoonize</button>
+        </form>
+
+        {% if output_image %}
+            <div class="output">
+                <h2>Cartoonized Image:</h2>
+                <img src="{{ url_for('static', filename='outputs/' ~ output_image) }}" alt="Cartoon Image" class="output-image">
+                <br>
+                <a class="download-btn" href="{{ url_for('static', filename='outputs/' ~ output_image) }}" download>⬇ Download</a>
+            </div>
+        {% endif %}
+
+        <div class="nav">
+            <a href="{{ url_for('gallery') }}" class="nav-link">🖼️ View Gallery</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gallery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .background-image {
+            background: linear-gradient(135deg, #7b2ff7, #f107a3);
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .gallery-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            padding: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .gallery-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .button-group button,
+        .button-group .download {
+            background-color: #fff;
+            color: #7b2ff7;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .button-group button:hover,
+        .button-group .download:hover {
+            background-color: #f2f2f2;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 40px;
+            background-color: #fff;
+            color: #7b2ff7;
+            padding: 12px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background-color: #e0e0e0;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+<body class="background-image">
+    <div class="container">
+        <h1>Your Cartoonized Gallery</h1>
+
+        {% if images %}
+        <div class="gallery-grid">
+            {% for img in images %}
+            <div class="gallery-card">
+                <img src="{{ url_for('static', filename='gallery/' ~ img) }}" alt="Cartoon Image">
+                <div class="button-group">
+                    <form action="/delete_image" method="POST">
+                        <input type="hidden" name="image_name" value="{{ img }}">
+                        <button type="submit">Delete</button>
+                    </form>
+                    <a class="download" href="{{ url_for('static', filename='gallery/' ~ img) }}" download>Download</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p>No images in the gallery yet.</p>
+        {% endif %}
+
+        <a href="{{ url_for('index') }}" class="nav-link">Back to Home</a>
+    </div>
+</body>
+</html>
